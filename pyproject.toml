@@ -1,0 +1,65 @@
+[project]
+name = "effective-mobile-test-task"
+version = "0.1.0"
+description = "A full-featured Django web application for managing cafe orders. The application allows you to add, delete, search, modify, and display orders."
+authors = [
+    {name = "Vladimir Volosnikov",email = "volosnikovvladimir69@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django (>=5.1.5,<6.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+force-exclude = '''
+/(
+    \.venv
+  | \.venv_dev
+  | migrations
+)/
+|
+(
+    .*/apps\.py
+  | .*/settings\.py
+  | manage\.py
+  | /online_cafe/wsgi\.py
+  | /online_cafe/asgi\.py
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip_gitignore = true
+skip_glob = [
+    "**/migrations/*",
+    "**/settings.py",
+    "**/apps.py",
+    "**/.venv/*",
+    "**/.venv_dev/*",
+    "**wsgi.py",
+    "**asgi.py",
+    "**manage.py",
+]
+
+[tool.mypy]
+exclude = [
+    ".venv",
+    ".venv_dev",
+    ".*/migrations/",
+    '.*/apps\.py',
+    '.*/settings\.py',
+    '.*manage\.py',
+    '.*wsgi\.py',
+    '.*asgi\.py',
+    '.*test\.py',
+]
+ignore_missing_imports = true

@@ -1,0 +1,1 @@
+"""Class with Views."""

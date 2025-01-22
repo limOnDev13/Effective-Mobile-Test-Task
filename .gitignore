@@ -1,0 +1,5 @@
+# environment
+/.venv/
+/.venv-dev/
+/.idea/
+/.env
