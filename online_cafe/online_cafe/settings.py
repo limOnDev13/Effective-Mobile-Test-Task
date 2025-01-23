@@ -67,8 +67,8 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            "templates/",
-            "templates/orders/",
+            BASE_DIR / "online_cafe" / "templates",
+            BASE_DIR / "orders" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -88,10 +88,16 @@ WSGI_APPLICATION = "online_cafe.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASE_DIR = BASE_DIR / "database" if not DEBUG else BASE_DIR / "test_database"
+DATABASE_DIR.mkdir(exist_ok=True)
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'db') if not DEBUG else os.getenv('POSTGRES_TEST_DB', 'test_db'),
+        'USER': os.getenv('POSTGRES_USER', 'user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost') if not DEBUG else os.getenv('POSTGRES_TEST_HOST', 'localhost'),
+        'PORT': os.getenv('POSTGRES_PORT', 5432) if not DEBUG else os.getenv('POSTGRES_TEST_PORT', 5432),
     }
 }
 
@@ -131,7 +137,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
