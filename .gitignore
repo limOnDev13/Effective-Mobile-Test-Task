@@ -3,3 +3,6 @@
 /.venv-dev/
 /.idea/
 /.env
+
+# db files
+/online_cafe/database/
