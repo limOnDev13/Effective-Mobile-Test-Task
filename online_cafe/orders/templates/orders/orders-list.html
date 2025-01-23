@@ -1,0 +1,15 @@
+{% extends "templates/base.html" %}
+
+{% block title %}
+Список заказов
+{% endblock %}
+
+{% block main_page_module %}
+<ul>
+    {% for order in oreders %}
+    <li>
+        order
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
