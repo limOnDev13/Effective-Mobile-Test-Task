@@ -1,15 +1,45 @@
-{% extends "templates/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 Список заказов
 {% endblock %}
 
 {% block main_page_module %}
-<ul>
-    {% for order in oreders %}
-    <li>
-        order
-    </li>
-    {% endfor %}
-</ul>
+<h1 class="bd-title" id="content">Список заказов</h1>
+{% if orders %}
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <td><b>id</b></td>
+            <td><b>Номер стола</b></td>
+            <td><b>Список блюд</b></td>
+            <td><b>Общая цена</b></td>
+            <td><b>Статус</b></td>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for order in orders %}
+        {% if order.status == "в ожидании" %}
+        <tr class="table-light">
+        {% elif order.status == "оплачено" %}
+        <tr class="table-primary">
+        {% elif order.status == "готово" %}
+        <tr class="table-success">
+        {% endif %}
+            <td>{{order.pk}}</td>
+            <td>{{order.table_number}}</td>
+            <td>
+                {% for item in order.items.all %}
+                <p>{{item}}</p>
+                {% endfor %}
+            </td>
+            <td>{{order.total_price}}</td>
+            <td>{{order.status}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+Пока нет заказов
+{% endif %}
 {% endblock %}
