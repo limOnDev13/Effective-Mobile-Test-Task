@@ -16,3 +16,4 @@ class OrderCreateView(CreateView):
 class OrderListView(ListView):
     queryset = Order.objects.prefetch_related("items")
     template_name = "orders/orders-list.html"
+    context_object_name = "orders"
