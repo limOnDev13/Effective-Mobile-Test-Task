@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Новый заказ
+{% endblock %}
+
+{% block main_page_module %}
+<h1 class="bd-title" id="content">Создать новый заказ</h1>
+<br>
+<form method="POST" action="{% url 'orders:orders-create' %}">
+    {% csrf_token %}
+    {% for field in forms %}
+        <div class="mb-3">
+            <label class="form-label">{{ field.label_tag }}</label>
+            <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Создать</button>
+</form>
+{% endblock %}
