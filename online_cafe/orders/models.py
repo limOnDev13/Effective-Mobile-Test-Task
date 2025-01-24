@@ -1,5 +1,7 @@
 """Module with ORM models."""
 
+from typing import Dict
+
 from django.core.validators import MinValueValidator
 from django.db import models
 from menu.models import Dish
@@ -8,12 +10,11 @@ from menu.models import Dish
 class Order(models.Model):
     """ORM representation of the table of orders."""
 
-    class STATUSES(models.TextChoices):
-        """Class with statuses."""
-
-        DONE = "done", "готово"
-        PAID = "paid", "оплачено"
-        PENDING = "pending", "в ожидании"
+    STATUSES: Dict[str, str] = {
+        "done": "готово",
+        "paid": "оплачено",
+        "pending": "в ожидании",
+    }
 
     table_number: models.IntegerField = models.IntegerField(
         null=False, verbose_name="Номер стола", validators=[MinValueValidator(0)]
