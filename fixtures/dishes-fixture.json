@@ -1,0 +1,164 @@
+[
+  {
+    "model": "menu.dish",
+    "pk": 1,
+    "fields": {
+      "name": "difference",
+      "description": "Point of result medical election beyond. But chance practice. Heavy last animal science.",
+      "price": "25.24"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 2,
+    "fields": {
+      "name": "position",
+      "description": "Like agreement way tax fire important would. Police themselves audience conference face.\nMarriage central space more help tree. Cultural less discussion or recently.",
+      "price": "1.70"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 3,
+    "fields": {
+      "name": "third",
+      "description": "Hundred life organization east reduce weight. Commercial traditional hand.\nSide lot believe she. Newspaper traditional item past wide old picture join.",
+      "price": "39.54"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 4,
+    "fields": {
+      "name": "beat",
+      "description": "Water keep throw left food artist.\nKnow your home sell choose public note. Important test southern public above. Central blue minute.\nMiddle morning style. Rest wear certainly class many.",
+      "price": "90.09"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 5,
+    "fields": {
+      "name": "movie",
+      "description": "Play debate method road. Science fill up total. Growth imagine look.\nEnergy walk little south research. Billion fast scene author structure. Probably end inside school poor just no.",
+      "price": "95.64"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 6,
+    "fields": {
+      "name": "economy",
+      "description": "Institution paper indeed son reality son billion treat. Skill project hand treatment.\nGlass trade while show. Democrat heavy drive move entire ability fall.",
+      "price": "96.67"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 7,
+    "fields": {
+      "name": "strong",
+      "description": "They population market house. Standard whatever economy improve.\nThat level next stay. Stay whom war.",
+      "price": "14.47"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 8,
+    "fields": {
+      "name": "team",
+      "description": "Pressure alone seven one main measure tax. Once force hear Mrs down personal stay.",
+      "price": "84.75"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 9,
+    "fields": {
+      "name": "dinner",
+      "description": "Event hundred lose past stock start ever. Issue oil finish discover rich control four minute. Key already apply care argue tell provide.",
+      "price": "35.73"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 10,
+    "fields": {
+      "name": "mouth",
+      "description": "Direction meeting save. Model say everyone other. Notice environmental debate against.\nWithin here around how south position wear recognize. Wrong visit list sure mind movement.",
+      "price": "66.78"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 11,
+    "fields": {
+      "name": "natural",
+      "description": "Wonder religious or clearly. Message fast around performance threat this stop. Candidate great specific. Scene opportunity law least forward.",
+      "price": "87.13"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 12,
+    "fields": {
+      "name": "man",
+      "description": "Everything simply miss simply individual. Focus way particular old country line.",
+      "price": "8.74"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 13,
+    "fields": {
+      "name": "contain",
+      "description": "Cause room manage little concern attorney measure. Occur voice impact machine reason him. Red impact sound space pay. Skin among range school must thought technology.",
+      "price": "69.51"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 14,
+    "fields": {
+      "name": "blue",
+      "description": "Resource participant skill.\nSo paper eat walk. Health land enough bit way. Most spring military eye.",
+      "price": "35.03"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 15,
+    "fields": {
+      "name": "special",
+      "description": "Politics author activity international Democrat many. Especially fine other group send material next.",
+      "price": "20.44"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 16,
+    "fields": {
+      "name": "popular",
+      "description": "Plant which someone social relationship interview. Director home son partner want. Book see note whom only wind. Even middle tend nice end team rule few.",
+      "price": "83.38"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 17,
+    "fields": {
+      "name": "present",
+      "description": "Total apply either western get. Old several late visit attack toward thousand race. Affect base result.\nThose born next drug bill beautiful win. Garden scene guess partner.",
+      "price": "16.30"
+    }
+  },
+  {
+    "model": "menu.dish",
+    "pk": 18,
+    "fields": {
+      "name": "dream",
+      "description": "Industry show hit continue even play. Edge between expert listen.\nLess shoulder win me animal lot. Finish say food idea prepare operation.",
+      "price": "35.05"
+    }
+  }
+]
