@@ -73,17 +73,55 @@ class OrderListViewTest(TestCase):
                 transform=lambda p: p.pk,
             )
 
+    def test_get_orders_with_get_param(self):
+        """Test getting orders with GET params."""
+        for i in range(1, 4):
+            table_nums: List[int] = random.choices(
+                Order.objects.values_list("table_number", flat=True).all(), k=10
+            )
+            statuses_params: List[str] = random.choices(
+                list(Order.STATUSES.values()), k=random.randint(1, i)
+            )
+
+            base_url: str = reverse("orders:orders-list")
+            for table_number in table_nums:
+                url_with_get_params: str = "?".join(
+                    (
+                        base_url,
+                        "&".join(
+                            (
+                                f"table_number={table_number}",
+                                *(f"status={status}" for status in statuses_params),
+                            )
+                        ),
+                    )
+                )
+                response = self.client.get(url_with_get_params)
+
+                statuses_filter = Q(status=statuses_params[0])
+                for j in range(1, len(statuses_params)):
+                    statuses_filter = statuses_filter | Q(status=statuses_params[j])
+                statuses_filter = statuses_filter & Q(table_number=table_number)
+
+                self.assertQuerySetEqual(
+                    qs=Order.objects.filter(statuses_filter).order_by("pk").all(),
+                    values=sorted((s.pk for s in response.context["orders"])),
+                    transform=lambda p: p.pk,
+                )
+
 
 class OrderDetailViewTest(TestCase):
     """Test case class for testing OrderDetailView."""
 
     def setUp(self):
+        """Set up."""
         self.dishes: List[Dish] = [
             DishFactory.create() for _ in range(random.randint(1, 10))
         ]
         self.order = OrderFactory.create(items=self.dishes)
 
     def tearDown(self):
+        """Tear down."""
         self.order.delete()
         for dish in self.dishes:
             dish.delete()
