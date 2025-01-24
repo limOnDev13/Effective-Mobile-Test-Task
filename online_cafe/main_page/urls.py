@@ -1,3 +1,4 @@
+"""Module with urlpatterns."""
 
 from django.urls import path
 
