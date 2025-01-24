@@ -29,6 +29,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'orders:orders-create' %}">Создать заказ</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'orders:orders-revenue' %}">Выручка</a>
+        </li>
         <li>
             <form class="d-flex" method="GET" action="{% url 'orders:orders-list' %}">
                 <input class="form-control me-2" type="search" placeholder="Поиск по столам" aria-label="Search" name="table_number">
