@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Детали заказа
+{% endblock %}
+
+{% block main_page_module %}
+<h1 class="bd-title" id="content">Заказ #{{order.pk}}</h1>
+<br>
+<table class="table table-striped align-middle">
+    <tr>
+        <td>Номер стола</td>
+        <td>{{order.table_number}}</td>
+    </tr>
+    <tr>
+        <td>Блюда</td>
+        <td>
+            {% for item in order.items.all %}
+            <p>{{item}}</p>
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>Общая стоимость</td>
+        <td>{{order.total_price}}</td>
+    </tr>
+    <tr>
+        <td>Статус</td>
+        <td><b>{{order.get_status_display}}</b></td>
+    </tr>
+</table>
+<a href="{% url 'orders:orders-update' pk=order.pk %}" class="btn btn-primary text-start">Изменить</a>
+<a href="{% url 'orders:orders-delete' pk=order.pk %}" class="btn btn-danger text-end">Удалить</a>
+{% endblock %}
