@@ -62,6 +62,12 @@ exclude = [
     '.*/asgi\.py',
     '.*/test\.py',
     "(^|/)factories\\.py$",
-    '.*urls\.py$',
+    '(^|/)urls\.py$',
 ]
 ignore_missing_imports = true
+
+[tool.mypy.files]
+exclude = [
+    "(^|/)factories\\.py$",
+    '(^|/)urls\.py$',
+]
