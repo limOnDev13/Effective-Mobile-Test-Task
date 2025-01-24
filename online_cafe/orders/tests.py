@@ -139,11 +139,13 @@ class OrderCreateViewTest(TestCase):
     """Test case class for testing OrderCreateView."""
 
     def setUp(self):
+        """Set up."""
         self.dishes: List[Dish] = [
             DishFactory.create() for _ in range(random.randint(1, 10))
         ]
 
     def tearDown(self):
+        """Tear down."""
         for dish in self.dishes:
             dish.delete()
 
@@ -164,12 +166,14 @@ class OrderUpdateViewTest(TestCase):
     """Test case class for testing OrderUpdateView."""
 
     def setUp(self):
+        """Set up."""
         self.dishes: List[Dish] = [
             DishFactory.create() for _ in range(random.randint(1, 10))
         ]
         self.order: Order = OrderFactory.create(items=self.dishes)
 
     def tearDown(self):
+        """Tear down."""
         for dish in self.dishes:
             dish.delete()
         self.order.delete()
@@ -205,12 +209,14 @@ class OrderDeleteViewTest(TestCase):
     """Test case class for testing OrderDeleteView."""
 
     def setUp(self):
+        """Set up."""
         self.dishes: List[Dish] = [
             DishFactory.create() for _ in range(random.randint(1, 10))
         ]
         self.order: Order = OrderFactory.create(items=self.dishes)
 
     def tearDown(self):
+        """Tear down."""
         for dish in self.dishes:
             dish.delete()
         self.order.delete()
