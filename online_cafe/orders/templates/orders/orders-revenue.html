@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Список заказов
+{% endblock %}
+
+{% block main_page_module %}
+<h1 class="bd-title" id="content">Выручка за смену: {{revenue}}</h1>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <td><b>id</b></td>
+            <td><b>Номер стола</b></td>
+            <td><b>Общая цена</b></td>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for order in orders %}
+        <tr class="table-light">
+            <td><a href="{% url 'orders:orders-detail' pk=order.pk%}">{{order.pk}}</a></td>
+            <td>{{order.table_number}}</td>
+            <td>{{order.total_price}}</td>
+        </tr>
+        {% endfor %}
+        <tr class="table-success">
+            <td></td>
+            <td></td>
+            <td>{{revenue}}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
