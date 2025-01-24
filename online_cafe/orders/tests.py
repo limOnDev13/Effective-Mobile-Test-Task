@@ -199,3 +199,33 @@ class OrderUpdateViewTest(TestCase):
         # Check that the old primary key contains updated data
         order_ = Order.objects.filter(pk=self.order.pk).first()
         self.assertEqual(order_.status, new_status)
+
+
+class OrderDeleteViewTest(TestCase):
+    """Test case class for testing OrderDeleteView."""
+
+    def setUp(self):
+        self.dishes: List[Dish] = [
+            DishFactory.create() for _ in range(random.randint(1, 10))
+        ]
+        self.order: Order = OrderFactory.create(items=self.dishes)
+
+    def tearDown(self):
+        for dish in self.dishes:
+            dish.delete()
+        self.order.delete()
+
+    def test_delete_order(self):
+        """Test deleting the order."""
+        response = self.client.post(
+            reverse(
+                "orders:orders-delete",
+                kwargs={"pk": self.order.pk},
+            )
+        )
+
+        # Check redirect
+        self.assertRedirects(response, reverse("orders:orders-list"))
+        # Check that there is no data for the old primary key
+        not_existing_order = Order.objects.filter(pk=self.order.pk).first()
+        self.assertIsNone(not_existing_order)
