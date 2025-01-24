@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "main_page.apps.MainPageConfig",
     "orders.apps.OrdersConfig",
     "menu.apps.MenuConfig",
 ]
@@ -67,6 +68,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
+            BASE_DIR / "main_page" / "templates",
             BASE_DIR / "online_cafe" / "templates",
             BASE_DIR / "orders" / "templates",
         ],
