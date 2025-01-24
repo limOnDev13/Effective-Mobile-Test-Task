@@ -75,6 +75,6 @@ jobs:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
-          echo ${{ secrets.TEST_EMAIL }}
+          cd online_cafe
           python manage.py migrate
           python manage.py test
