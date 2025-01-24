@@ -20,14 +20,14 @@
     </thead>
     <tbody class="table-group-divider">
         {% for order in orders %}
-        {% if order.status == "в ожидании" %}
+        {% if order.status == "pending" %}
         <tr class="table-light">
-        {% elif order.status == "оплачено" %}
-        <tr class="table-primary">
-        {% elif order.status == "готово" %}
+        {% elif order.get_status_display == "готово" %}
         <tr class="table-success">
+        {% elif order.status == "paid" %}
+        <tr class="table-primary">
         {% endif %}
-            <td>{{order.pk}}</td>
+            <td><a href="{% url 'orders:orders-detail' pk=order.pk%}">{{order.pk}}</a></td>
             <td>{{order.table_number}}</td>
             <td>
                 {% for item in order.items.all %}
@@ -35,7 +35,7 @@
                 {% endfor %}
             </td>
             <td>{{order.total_price}}</td>
-            <td>{{order.status}}</td>
+            <td>{{order.get_status_display}}</td>
         </tr>
         {% endfor %}
     </tbody>
