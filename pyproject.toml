@@ -57,9 +57,11 @@ exclude = [
     ".*/migrations/",
     '.*/apps\.py',
     '.*/settings\.py',
-    '.*manage\.py',
-    '.*wsgi\.py',
-    '.*asgi\.py',
-    '.*test\.py',
+    '.*/manage\.py',
+    '.*/wsgi\.py',
+    '.*/asgi\.py',
+    '.*/test\.py',
+    "(^|/)factories\\.py$",
+    '.*urls\.py$',
 ]
 ignore_missing_imports = true
