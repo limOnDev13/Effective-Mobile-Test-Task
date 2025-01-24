@@ -1,5 +1,6 @@
 """Class with Views."""
 
+from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -24,9 +25,26 @@ class OrderCreateView(CreateView):
 class OrderListView(ListView):
     """List view class for Order."""
 
-    queryset = Order.objects.prefetch_related("items")
     template_name = "orders/orders-list.html"
     context_object_name = "orders"
+
+    def get_queryset(self):
+        """Get a queryset depending on the GET parameters."""
+        table_number = self.request.GET.get("table_number")
+        status = self.request.GET.get("status")
+
+        if not status and not table_number:
+            return Order.objects.prefetch_related("items")
+        elif not status:
+            return Order.objects.prefetch_related("items").filter(
+                table_number=table_number
+            )
+        elif not table_number:
+            return Order.objects.prefetch_related("items").filter(status=status)
+        else:
+            return Order.objects.prefetch_related("items").filter(
+                Q(table_number=table_number) & Q(status=status)
+            )
 
 
 class OrderDetailView(DetailView):
