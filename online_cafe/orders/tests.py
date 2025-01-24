@@ -133,3 +133,69 @@ class OrderDetailViewTest(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+
+
+class OrderCreateViewTest(TestCase):
+    """Test case class for testing OrderCreateView."""
+
+    def setUp(self):
+        self.dishes: List[Dish] = [
+            DishFactory.create() for _ in range(random.randint(1, 10))
+        ]
+
+    def tearDown(self):
+        for dish in self.dishes:
+            dish.delete()
+
+    def test_create_service(self):
+        """Test creating a new service."""
+        response = self.client.post(
+            reverse("orders:orders-create"),
+            {
+                "table_number": random.randint(1, 1000),
+                "items": [dish.pk for dish in self.dishes],
+            },
+        )
+
+        self.assertRedirects(response, reverse("orders:orders-list"))
+
+
+class OrderUpdateViewTest(TestCase):
+    """Test case class for testing OrderUpdateView."""
+
+    def setUp(self):
+        self.dishes: List[Dish] = [
+            DishFactory.create() for _ in range(random.randint(1, 10))
+        ]
+        self.order: Order = OrderFactory.create(items=self.dishes)
+
+    def tearDown(self):
+        for dish in self.dishes:
+            dish.delete()
+        self.order.delete()
+
+    def test_update_order(self):
+        """Test updating the order."""
+        new_status: str = random.choice(list(Order.STATUSES.keys()))
+
+        response = self.client.post(
+            reverse(
+                "orders:orders-update",
+                kwargs={"pk": self.order.pk},
+            ),
+            {
+                "status": new_status,
+            },
+        )
+
+        # Check redirect
+        self.assertRedirects(
+            response,
+            reverse(
+                "orders:orders-detail",
+                kwargs={"pk": self.order.pk},
+            ),
+        )
+        # Check that the old primary key contains updated data
+        order_ = Order.objects.filter(pk=self.order.pk).first()
+        self.assertEqual(order_.status, new_status)
