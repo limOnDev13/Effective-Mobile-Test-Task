@@ -49,17 +49,3 @@ skip_glob = [
     "**asgi.py",
     "**manage.py",
 ]
-
-[tool.mypy]
-exclude = [
-    ".venv",
-    ".venv_dev",
-    ".*/migrations/",
-    '.*/apps\.py',
-    '.*/settings\.py',
-    '.*manage\.py',
-    '.*wsgi\.py',
-    '.*asgi\.py',
-    '.*test\.py',
-]
-ignore_missing_imports = true

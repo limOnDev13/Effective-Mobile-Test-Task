@@ -6,11 +6,15 @@ from django.db import models
 class Dish(models.Model):
     """ORM representation of the table of dishes."""
 
-    name = models.CharField(
+    name: models.CharField = models.CharField(
         max_length=30, blank=False, null=False, help_text="Название блюда"
     )
-    description = models.TextField(null=True, blank=True, help_text="Описание блюда")
-    price = models.DecimalField(decimal_places=2, null=False, help_text="Цена блюда")
+    description: models.TextField = models.TextField(
+        null=True, blank=True, help_text="Описание блюда"
+    )
+    price: models.DecimalField = models.DecimalField(
+        max_digits=7, decimal_places=2, null=False, help_text="Цена блюда"
+    )
 
     class Meta:
         """Class Meta."""
