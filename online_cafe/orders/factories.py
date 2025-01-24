@@ -1,10 +1,10 @@
 """Module with factories."""
+
 import random
 
 import factory.fuzzy
 
 from .models import Order
-
 
 STATUSES = ("в ожидании", "готово", "оплачено")
 
@@ -17,8 +17,12 @@ class OrderFactory(factory.django.DjangoModelFactory):
 
         model = Order
 
-    table_number = factory.LazyAttribute(lambda n: random.randint(1, 1000))
-    status = factory.LazyAttribute(lambda status: random.choice(STATUSES))
+    table_number: factory.LazyAttribute = factory.LazyAttribute(
+        lambda n: random.randint(1, 1000)
+    )
+    status: factory.LazyAttribute = factory.LazyAttribute(
+        lambda status: random.choice(STATUSES)
+    )
 
     @factory.post_generation
     def items(self, create, extracted, **kwargs):
@@ -26,4 +30,4 @@ class OrderFactory(factory.django.DjangoModelFactory):
         if not create or not extracted:
             return
 
-        self.items.add(*extracted)
+        self.items.add(*extracted)  # type: ignore[attr-defined]

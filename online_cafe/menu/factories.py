@@ -16,6 +16,8 @@ class DishFactory(factory.django.DjangoModelFactory):
         model = Dish  # Equivalent to ``model = myapp.models.User``
         django_get_or_create = ("name", "description", "price")
 
-    name = factory.faker.Faker("word")
-    description = factory.faker.Faker("text")
-    price = factory.LazyAttribute(lambda x: round(random.uniform(0, 100), 2))
+    name: factory.faker.Faker = factory.faker.Faker("word")
+    description: factory.faker.Faker = factory.faker.Faker("text")
+    price: factory.LazyAttribute = factory.LazyAttribute(
+        lambda x: round(random.uniform(0, 100), 2)
+    )
