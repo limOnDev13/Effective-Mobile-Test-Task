@@ -20,11 +20,11 @@
     </thead>
     <tbody class="table-group-divider">
         {% for order in orders %}
-        {% if order.status == "pending" %}
+        {% if order.status == "в ожидании" %}
         <tr class="table-light">
-        {% elif order.get_status_display == "готово" %}
+        {% elif order.status == "готово" %}
         <tr class="table-success">
-        {% elif order.status == "paid" %}
+        {% elif order.status == "оплачено" %}
         <tr class="table-primary">
         {% endif %}
             <td><a href="{% url 'orders:orders-detail' pk=order.pk%}">{{order.pk}}</a></td>
