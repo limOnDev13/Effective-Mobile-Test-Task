@@ -3,6 +3,7 @@
 import random
 from typing import List
 
+from django.db.models import Q
 from django.test import TestCase
 from django.urls import reverse
 from menu.factories import DishFactory
@@ -30,7 +31,7 @@ class OrderListViewTest(TestCase):
             transform=lambda p: p.pk,
         )
 
-    def test_get_order_with_get_param_table_number(self):
+    def test_get_orders_with_get_param_table_number(self):
         """Test getting orders with table_number from GET params."""
         table_nums: List[int] = random.choices(
             Order.objects.values_list("table_number", flat=True).all(), k=10
@@ -45,6 +46,29 @@ class OrderListViewTest(TestCase):
 
             self.assertQuerySetEqual(
                 qs=Order.objects.filter(table_number=table_number).order_by("pk").all(),
+                values=sorted((s.pk for s in response.context["orders"])),
+                transform=lambda p: p.pk,
+            )
+
+    def test_get_orders_with_get_param_status(self):
+        """Test getting orders with status from GET params."""
+        for i in range(1, 4):
+            statuses_params: List[str] = random.choices(
+                list(Order.STATUSES.values()), k=random.randint(1, i)
+            )
+            base_url: str = reverse("orders:orders-list")
+
+            url_with_get_params: str = "?".join(
+                (base_url, "&".join((f"status={status}" for status in statuses_params)))
+            )
+            response = self.client.get(url_with_get_params)
+
+            statuses_filter = Q(status=statuses_params[0])
+            for j in range(1, len(statuses_params)):
+                statuses_filter = statuses_filter | Q(status=statuses_params[j])
+
+            self.assertQuerySetEqual(
+                qs=Order.objects.filter(statuses_filter).order_by("pk").all(),
                 values=sorted((s.pk for s in response.context["orders"])),
                 transform=lambda p: p.pk,
             )
