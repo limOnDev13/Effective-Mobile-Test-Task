@@ -1,6 +1,10 @@
 """Class with Views."""
 
+from typing import List
+
 from django.db.models import Q
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -28,22 +32,36 @@ class OrderListView(ListView):
     template_name = "orders/orders-list.html"
     context_object_name = "orders"
 
+    @classmethod
+    def __filter_status(cls, statuses: List[str]):
+        """
+        Add up the status filters bitwise.
+
+        :param statuses: List of statuses from GET params.
+        :return: Q(status=status[0]) | Q(status=status[1]) |...
+        """
+        result = Q(status=statuses[0])
+        for i in range(1, len(statuses)):
+            result = result | Q(status=statuses[i])
+        return result
+
     def get_queryset(self):
         """Get a queryset depending on the GET parameters."""
         table_number = self.request.GET.get("table_number")
-        status = self.request.GET.get("status")
-
-        if not status and not table_number:
+        statuses = self.request.GET.getlist("status")
+        if not statuses and not table_number:
             return Order.objects.prefetch_related("items")
-        elif not status:
+        elif not statuses:
             return Order.objects.prefetch_related("items").filter(
                 table_number=table_number
             )
         elif not table_number:
-            return Order.objects.prefetch_related("items").filter(status=status)
+            return Order.objects.prefetch_related("items").filter(
+                self.__filter_status(statuses)
+            )
         else:
             return Order.objects.prefetch_related("items").filter(
-                Q(table_number=table_number) & Q(status=status)
+                Q(table_number=table_number) & self.__filter_status(statuses)
             )
 
 
@@ -76,3 +94,11 @@ class OrderDeleteView(DeleteView):
     model = Order
     success_url = reverse_lazy("orders:orders-list")
     template_name = "orders/orders-delete.html"
+
+
+def get_revenue_per_shift(request: HttpRequest) -> HttpResponse:
+    """Get revenue per shift."""
+    paid_orders = Order.objects.filter(status="оплачено").all()
+    revenue = sum(order.total_price for order in paid_orders)
+    context = {"revenue": revenue, "orders": paid_orders}
+    return render(request, "orders/orders-revenue.html", context=context)
