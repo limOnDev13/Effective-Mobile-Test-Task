@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - my_network
+  app:
+    build: .
+    expose:
+      - 8000
+    command: >
+      sh -c "cd online_cafe &&
+             python manage.py migrate &&
+             python manage.py loaddata ../fixtures/dishes-fixture.json &&
+             python manage.py loaddata ../fixtures/orders-fixture.json &&
+             gunicorn online_cafe.wsgi:application --bind 0.0.0.0:8000"
+    env_file: ".env"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - my_network
+    volumes:
+      - static:/online_cafe/static
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      app:
+        condition: service_started
+    restart: always
+    networks:
+      - my_network
+    volumes:
+      - static:/online_cafe/static
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  static:

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Удалить заказ
+{% endblock %}
+
+{% block main_page_module %}
+<h1 class="bd-title" id="content">Удалить заказ #{{order.pk}}</h1>
+<br>
+<form method="POST" action="{% url 'orders:orders-delete' pk=order.pk %}">
+    {% csrf_token %}
+    <p>Вы хотите удалить заказ?</p>
+    {{ form.as_p }}
+    <button class="btn btn-danger text-end" type="submit">Удалить</button>
+</form>
+{% endblock %}

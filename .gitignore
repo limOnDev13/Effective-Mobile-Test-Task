@@ -1,0 +1,10 @@
+# environment
+/.venv/
+/.venv-dev/
+/.idea/
+/.env
+
+# db files
+/online_cafe/database/
+/postgres-data/
+/postgres-data-test/
