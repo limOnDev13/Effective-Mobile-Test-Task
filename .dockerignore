@@ -1,0 +1,7 @@
+.gitignore
+docker-compose.dev.yml
+README.md
+requirements-dev.txt
+setup.cfg
+ТЗ Python Январь.pdf
+.github
