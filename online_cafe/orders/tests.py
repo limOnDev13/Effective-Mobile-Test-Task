@@ -181,6 +181,9 @@ class OrderUpdateViewTest(TestCase):
     def test_update_order(self):
         """Test updating the order."""
         new_status: str = random.choice(list(Order.STATUSES.keys()))
+        new_dishes: List[int] = [
+            DishFactory.create().pk for _ in range(random.randint(1, 10))
+        ]
 
         response = self.client.post(
             reverse(
@@ -189,6 +192,7 @@ class OrderUpdateViewTest(TestCase):
             ),
             {
                 "status": new_status,
+                "items": new_dishes,
             },
         )
 

@@ -77,7 +77,7 @@ class OrderUpdateView(UpdateView):
     """Update view class for Order."""
 
     model = Order
-    fields = ("status",)
+    fields = ("status", "items")
     template_name = "orders/orders-update.html"
 
     def get_success_url(self):
