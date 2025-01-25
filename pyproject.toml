@@ -5,12 +5,18 @@ description = "A full-featured Django web application for managing cafe orders. 
 authors = [
     {name = "Vladimir Volosnikov",email = "volosnikovvladimir69@gmail.com"}
 ]
-readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "django (>=5.1.5,<6.0.0)",
-    "python-dotenv (>=1.0.1,<2.0.0)"
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "psycopg2 (>=2.9.10,<3.0.0)",
+    "djangorestframework (>=3.15.2,<4.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "drf-spectacular (>=0.28.0,<0.29.0)"
 ]
+
+[tool.poetry]
+package-mode = false
 
 
 [build-system]
