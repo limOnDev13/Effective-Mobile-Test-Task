@@ -29,6 +29,7 @@ services:
       sh -c "cd online_cafe &&
              python manage.py migrate &&
              python manage.py loaddata ../fixtures/dishes-fixture.json &&
+             python manage.py loaddata ../fixtures/orders-fixture.json &&
              gunicorn online_cafe.wsgi:application --bind 0.0.0.0:8000"
     env_file: ".env"
     depends_on:
