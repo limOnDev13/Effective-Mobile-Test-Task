@@ -16,10 +16,24 @@ from .models import Order
 class OrderListViewTest(TestCase):
     """Test case class for testing OrderListView."""
 
-    fixtures = [
-        "../fixtures/dishes-fixture.json",
-        "../fixtures/orders-fixture.json",
-    ]
+    def setUp(self):
+        """Set up."""
+        self.dishes: List[Dish] = [
+            DishFactory.create() for _ in range(random.randint(50, 100))
+        ]
+        self.orders: List[Order] = [
+            OrderFactory.create(
+                items=random.choices(self.dishes, k=random.randint(1, 50))
+            )
+        ]
+
+    def tearDown(self):
+        """Tear down."""
+        for dish in self.dishes:
+            dish.delete()
+
+        for order in self.orders:
+            order.delete()
 
     def test_get_all_orders(self):
         """Test getting list of orders."""
